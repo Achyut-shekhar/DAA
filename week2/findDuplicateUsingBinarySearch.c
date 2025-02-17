@@ -1,40 +1,79 @@
 #include<stdio.h>
-int find(int arr[],int left,int right)
-{  if(right<=left)
-      return 0;
-int mid = left + (right - left) / 2;
+
+int count_duplicates(int arr[], int n, int index) {
+    int count = 1; 
+
     
-    
-    if (arr[mid] == arr[mid + 1] || arr[mid] == arr[mid - 1]) {
-        return 1;  
+    int left = index - 1;
+    while (left >= 0 && arr[left] == arr[index]) {
+        count++;
+        left--;
     }
+
     
+    int right = index + 1;
+    while (right < n && arr[right] == arr[index]) {
+        count++;
+        right++;
+    }
+
+    return count;
+}
+
+int binarysearch(int arr[], int n, int target) {
+    int low = 0;
+    int high = n - 1;
     
-    if (arr[left] <= arr[mid]) {
-        if (arr[left] == arr[mid]) {
-            return 1;  
+    while (low <= high) {
+        int mid = (low + high) / 2;
+
+        if (arr[mid] == target) {
+            return mid;  
+        } 
+        else if (arr[mid] < target) {
+            low = mid + 1;
+        } 
+        else {
+            high = mid - 1;
         }
-        
-        return find(arr, mid + 1, right);
-    } else {
-       
-        return find(arr, left, mid - 1);
+    }
+    return -1;  
+}
+
+void find_duplicate_and_count(int arr[], int n) {
+    int flag = 0;
+    for (int i = 0; i < n - 1; i++) {
+        if (arr[i] == arr[i + 1]) {
+            int mid = binarysearch(arr, n, arr[i]);  
+            if (mid != -1) {
+                int count = count_duplicates(arr, n, mid);  
+                printf("Found duplicate for %d with %d occurrences.\n", arr[i], count);
+                flag = 1;
+                break;  
+            }
+        }
+    }
+
+    if (!flag) {
+        printf("No adjacent duplicates found!\n");
     }
 }
-int main()
-{
-    int n;
-    int arr[100];
-    printf("input the size of array");
-    scanf("%d",&n);
-    printf("input the element");
-    for(int i=0;i<n;i++)
-    {
-        scanf("%d",&arr[i]);
+
+int main() {
+    int test;
+    printf("Enter the number of test cases: ");
+    scanf("%d", &test);
+    while (test--) {
+        int n;
+        printf("Enter the size of array: ");
+        scanf("%d", &n);
+        int arr[n];
+        printf("Enter the array elements in sorted order: ");
+        for (int i = 0; i < n; i++) {
+            scanf("%d", &arr[i]);
+        }
+
+        find_duplicate_and_count(arr, n);
     }
-    int res=find(arr,0,n-1);
-    if(res==0)
-    printf("not found");
-    else
-    printf("found");
+    return 0;
 }
