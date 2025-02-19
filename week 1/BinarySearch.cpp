@@ -36,7 +36,7 @@ void processTestCase()
     int result = binarySearch(arr, n, key, comparisons);
 
     if (result != -1)
-        cout << "Present " << comparisons << endl;
+        cout << "Present " << comparisons + 1 << endl;
     else
         cout << "Not Present " << comparisons << endl;
 }
