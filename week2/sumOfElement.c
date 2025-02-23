@@ -11,7 +11,8 @@ void findSequence(int arr[], int n)
       if (sum == arr[k])
       {
         printf("%d %d %d\n", i, j, k);
-        return;
+        i++;
+        j--;
       }
       else if (sum < arr[k])
       {
