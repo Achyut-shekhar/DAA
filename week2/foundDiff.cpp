@@ -1,44 +1,45 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-void diff(vector<int> arr,int k,int n)
+
+void diff(vector<int> arr, int k)
 {
-int i=0,j=i+1,count=0;
-   sort(arr.begin(),arr.end());
-   while(j<=arr.size())
+   int i = 0, j = 1, count = 0;
+   sort(arr.begin(), arr.end());
+   while (j < arr.size())
    {
-      if(arr[j]-arr[i]==k)
+      if (arr[j] - arr[i] == k)
       {
-        i++;
-        j++;
-        count++;
+         count++;
+         i++;
+         j++;
       }
-      else if(arr[j]-arr[i]<k)
+      else if (arr[j] - arr[i] < k)
       {
-        j++;
+         j++;
       }
       else
-      i++;
+      {
+         i++;
+      }
    }
-   cout<<"count is: "<<count;
+   cout << count << endl;
 }
+
 int main()
 {
-   int key;
-   vector<int> arr;
-   int size;
-   cout<<"input the size of array:\n";
-   cin>>size;
-   for(int i=0;i<size;i++)
+   int T;
+   cin >> T;
+   while (T--)
    {
-      int num;
-      cin>>num;
-      arr.push_back(num);
+      int n, key;
+      cin >> n;
+      vector<int> arr(n);
+      for (int i = 0; i < n; i++)
+      {
+         cin >> arr[i];
+      }
+      cin >> key;
+      diff(arr, key);
    }
-   for(auto it:arr)
-   {
-     cout<<it;
-    }
-    cout<<"input the key"<<endl;
-    cin>>key;
-    diff(arr,key,size);
+   return 0;
 }

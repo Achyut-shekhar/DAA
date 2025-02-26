@@ -1,45 +1,64 @@
-#include<bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
-void sorting(vector<int> vec,int size)
-{
-   int count=0,comp=0;
-    for (int i = 1; i < size; ++i) {
-        int key = vec[i]; 
+
+void insertionSort(vector<int>& arr, int& comparisons, int& shifts) {
+    int n = arr.size();
+    comparisons = 0;
+    shifts = 0;
+    
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
         int j = i - 1;
-        comp=0;
-        count=0;
-        while (j >= 0 && vec[j] > key) {
-            vec[j + 1] = vec[j];
-            --j;
-            count++;
-            comp++;
+        int shift_count = 0;
+        
+        // Move elements that are greater than key one position ahead
+        while (j >= 0 && arr[j] > key) {
+            comparisons++;
+            arr[j + 1] = arr[j];
+            shift_count++;
+            j--;
         }
-        vec[j + 1] = key;
-        cout<<"\n";
-        cout<<"comp is: "<<comp<<" shifted: "<<count;  
-    }
-    cout<<"\n";
-     for(auto it:vec)
-   {
-     cout<<it<<" ";
+        
+        // Place the key in its correct position
+        if (shift_count > 0) {
+            arr[j + 1] = key;
+            shift_count++;
+        }
+        shifts += shift_count;
+        
+        if (j >= 0) comparisons++; // Extra comparison when while loop fails
     }
 }
-int main()
-{
-   int key;
-   vector<int> arr;
-   int size;
-   cout<<"input the size of array:\n";
-   cin>>size;
-   for(int i=0;i<size;i++)
-   {
-      int num;
-      cin>>num;
-      arr.push_back(num);
-   }
-   for(auto it:arr)
-   {
-     cout<<it<<" ";
+
+int main() {
+    int T;
+    cin >> T;
+    
+    while (T--) {
+        int n;
+        cin >> n;
+        vector<int> arr(n);
+        
+        for (int i = 0; i < n; i++) {
+            cin >> arr[i];
+        }
+        
+        int comparisons, shifts;
+        insertionSort(arr, comparisons, shifts);
+        
+        // Output sorted array
+        for (int num : arr) {
+            cout << num << " ";
+        }
+        cout << endl;
+        
+        // Output number of comparisons
+        cout << "Comparisons: " << comparisons << endl;
+        
+        // Output number of shifts
+        cout << "Shifts: " << shifts << endl;
     }
-    sorting(arr,size);
+    
+    return 0;
 }
