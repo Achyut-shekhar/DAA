@@ -7,7 +7,7 @@ void diff(vector<int> arr, int k)
    sort(arr.begin(), arr.end());
    while (j < arr.size())
    {
-      if (arr[j] + arr[i] == k)
+      if (arr[j] - arr[i] == k)
       {
          count++;
          i++;
