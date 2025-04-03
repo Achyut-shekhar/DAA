@@ -6,13 +6,13 @@ int partition(vector<int> &arr, int low, int high)
   int pivot = arr[low];
   int i = low;
   int j = high;
-  while (i < j)
+  while (i <= j)
   {
-    while (arr[i] <= pivot)
+    while (i <= high && arr[i] <= pivot)
     {
       i++;
     }
-    while (arr[j] > pivot)
+    while (j >= low && arr[j] > pivot)
     {
       j--;
     }
@@ -30,7 +30,7 @@ void quickSort(vector<int> &arr, int low, int high)
   if (low < high)
   {
     int pindex = partition(arr, low, high);
-    quickSort(arr, low, pindex);
+    quickSort(arr, low, pindex - 1);
     quickSort(arr, pindex + 1, high);
   }
 }
